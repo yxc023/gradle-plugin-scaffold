@@ -34,7 +34,7 @@ class ModuleCreateTask extends DefaultTask {
         }
 
         project.mkdir moduleName
-        project.file("setting.gradle").append("\ninclude '$moduleName'")
+        project.file("settings.gradle").append("\ninclude '$moduleName'")
         println "create dir: $moduleName"
 
 
@@ -52,7 +52,7 @@ class ModuleCreateTask extends DefaultTask {
 
 
         project.file("$moduleName/build.gradle") << """
-plugin {
+plugins {
     id 'java'
 }
 

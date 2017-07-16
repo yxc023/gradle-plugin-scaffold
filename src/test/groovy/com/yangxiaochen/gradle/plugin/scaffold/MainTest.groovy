@@ -93,7 +93,7 @@ class MainTest {
         assertTrue(new File(testProjectDir.getRoot(), 'foo/src/test/java').exists())
         assertTrue(new File(testProjectDir.getRoot(), 'foo/src/test/resources').exists())
 
-        def settingContent = new String(new File(testProjectDir.getRoot(), "setting.gradle").bytes)
+        def settingContent = new String(new File(testProjectDir.getRoot(), "settings.gradle").bytes)
         println settingContent
         assertTrue(settingContent.contains("include 'foo'"))
 

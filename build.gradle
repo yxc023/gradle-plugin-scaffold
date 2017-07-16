@@ -16,7 +16,7 @@ plugins {
 apply plugin: "com.gradle.plugin-publish"
 
 group 'com.yangxiaochen.gradle'
-version '1.0.0'
+version '1.0.2'
 
 repositories {
     mavenLocal()
@@ -42,7 +42,6 @@ pluginBundle {
         ScaffoldPlugin {
             id = 'com.yangxiaochen.scaffold'
             displayName = 'Java Project Scaffold plugin'
-            version '1.0.0'
         }
     }
 }
