@@ -11,7 +11,6 @@ buildscript {
 plugins {
     id 'groovy'
     id 'idea'
-    id 'maven-publish'
     id 'java-gradle-plugin'
 }
 apply plugin: "com.gradle.plugin-publish"
@@ -30,21 +29,6 @@ dependencies {
     compile localGroovy()
     testCompile gradleTestKit()
     testCompile 'junit:junit:4.12'
-}
-
-task sourceJar(type: Jar) {
-    from sourceSets.main.allJava
-}
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-            artifact sourceJar {
-                classifier "sources"
-            }
-        }
-    }
 }
 
 
