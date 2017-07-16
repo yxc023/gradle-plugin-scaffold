@@ -12,10 +12,19 @@ plugins {
 ```
 
 ## usage
+### createSrc
+create src and child dirs
 ```bash
 $ gradle createSrc
+
+create dir: src/main/java
+create dir: src/main/resources
+create dir: src/test/java
+create dir: src/test/resources
 ```
 
+### createModule
+create a new module
 ```bash
 $ gradle createModule --name foo
 
