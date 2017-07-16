@@ -34,7 +34,7 @@ class MainTest {
     }
 
     @Test
-    void testHelloWorldTask() throws IOException {
+    void createSrcTest() {
 
         buildFile << this.class.getResourceAsStream("/build.gradle")
 
@@ -44,13 +44,59 @@ class MainTest {
                 .withPluginClasspath()
                 .build()
 
-
-        println testProjectDir.getRoot().getPath()
+        println result.output
         assertTrue(new File(testProjectDir.getRoot(), 'src/main/java').exists())
         assertTrue(new File(testProjectDir.getRoot(), 'src/main/resources').exists())
         assertTrue(new File(testProjectDir.getRoot(), 'src/test/java').exists())
         assertTrue(new File(testProjectDir.getRoot(), 'src/test/resources').exists())
+        assertTrue(result.getOutput().contains("create dir:"))
         assertEquals(result.task(":createSrc").getOutcome(), TaskOutcome.SUCCESS)
+    }
+
+    @Test(expected = Exception.class)
+    void createModuleExceptionTest() {
+        buildFile << this.class.getResourceAsStream("/build.gradle")
+
+        BuildResult result = GradleRunner.create()
+                .withProjectDir(testProjectDir.getRoot())
+                .withArguments("createModule")
+                .withPluginClasspath()
+                .build()
+
+        println result.output
+
+    }
+
+    @Test
+    void createModuleTest() {
+        buildFile << this.class.getResourceAsStream("/build.gradle")
+
+        BuildResult result = GradleRunner.create()
+                .withProjectDir(testProjectDir.getRoot())
+                .withArguments("createModule", "--name", "foo")
+                .withPluginClasspath()
+                .build()
+
+        println result.output
+
+        assertTrue(new File(testProjectDir.getRoot(), 'foo/src/main/java').exists())
+        assertTrue(new File(testProjectDir.getRoot(), 'foo/src/main/resources').exists())
+        assertTrue(new File(testProjectDir.getRoot(), 'foo/src/test/java').exists())
+        assertTrue(new File(testProjectDir.getRoot(), 'foo/src/test/resources').exists())
+
+        def settingContent = new String(new File(testProjectDir.getRoot(), "setting.gradle").bytes)
+        println settingContent
+        assertTrue(settingContent.contains("include 'foo'"))
+
+        def buildContent = new String(new File(testProjectDir.getRoot(), "foo/build.gradle").bytes)
+        println buildContent
+        assertTrue(buildContent.contains("group 'com.yangxiaochen.scaffold.test'"))
+        assertTrue(buildContent.contains("version '1.2.3'"))
+
+        assertTrue(result.getOutput().contains("create dir:"))
+        assertEquals(result.task(":createModule").getOutcome(), TaskOutcome.SUCCESS)
+
+
     }
 
 }

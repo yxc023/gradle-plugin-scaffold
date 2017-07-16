@@ -1,3 +1,6 @@
 plugins {
     id 'com.yangxiaochen.scaffold'
 }
+
+group 'com.yangxiaochen.scaffold.test'
+version '1.2.3'
