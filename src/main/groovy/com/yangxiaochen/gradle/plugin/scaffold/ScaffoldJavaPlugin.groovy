@@ -8,7 +8,7 @@ import org.gradle.api.Project
  * @author yangxiaochen
  * @date 2017/7/14 15:31
  */
-class ScaffoldJavaPlugin implements Plugin<Project> {
+class ScaffoldPlugin implements Plugin<Project> {
     @Override
     void apply(Project project) {
         project.getTasks().create("createSrc", SourceSetCreateTask.class)
