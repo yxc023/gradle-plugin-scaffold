@@ -36,9 +36,9 @@ create dir: foo/src/test/resources
 create file: foo/build.gradle
 ```
 
-if you use Idea
+if you use Idea, in order to make Idea **know a new module had been added**.
 
-then edit `foo/build.gradle` to add `id 'idea'` in `plugins`, like this:
+edit `foo/build.gradle` to add `id 'idea'` in `plugins`, like this:
 ```bash
 plugins {
     id 'java'
