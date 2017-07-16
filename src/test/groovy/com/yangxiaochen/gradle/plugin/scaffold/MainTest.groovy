@@ -24,13 +24,22 @@ class MainTest {
     @Before
     void setup() throws IOException {
         buildFile = testProjectDir.newFile("build.gradle")
+    }
 
-//        def pluginClasspathResource = getClass().classLoader.findResource("plugin-classpath.txt")
-//        if (pluginClasspathResource == null) {
-//            throw new IllegalStateException("Did not find plugin classpath resource, run `testClasses` build task.")
-//        }
-//
-//        pluginClasspath = pluginClasspathResource.readLines().collect { new File(it) }
+    @Test
+    void createTasks() {
+        buildFile << this.class.getResourceAsStream("/build.gradle")
+        BuildResult result = GradleRunner.create()
+                .withProjectDir(testProjectDir.getRoot())
+                .withArguments("tasks")
+                .withPluginClasspath()
+                .build()
+
+        println result.output
+        assertTrue(result.getOutput().contains("Scaffold"))
+        assertTrue(result.getOutput().contains("createSrc"))
+        assertTrue(result.getOutput().contains("createModule"))
+        assertEquals(result.task(":tasks").getOutcome(), TaskOutcome.SUCCESS)
     }
 
     @Test
@@ -95,8 +104,6 @@ class MainTest {
 
         assertTrue(result.getOutput().contains("create dir:"))
         assertEquals(result.task(":createModule").getOutcome(), TaskOutcome.SUCCESS)
-
-
     }
 
 }
