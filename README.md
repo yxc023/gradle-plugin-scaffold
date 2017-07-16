@@ -53,3 +53,6 @@ $ gradle idea
 
 ## sugguest wanted
 please write issue
+
+## Communication
+QQ群：536890082
